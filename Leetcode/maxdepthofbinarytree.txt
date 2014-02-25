@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int max=0;
+    void down(TreeNode *a,int d)
+    {
+        if(a->left)
+            down(a->left,d+1);
+        if(a->right)
+            down(a->right,d+1);
+        if(a->left==NULL && a->right==NULL && max<d)
+            max=d;
+    }
+    int maxDepth(TreeNode *root) {
+        if(root==NULL)
+            return 0;
+        max=0;
+        down(root,1);
+        return max;
+    }
+};

@@ -1,11 +1,12 @@
 #include <iostream>
 #include <cstdio>
+#include <cmath>
+
+using namespace std;
 
 int main()
 {
-    const int a=10;
-    int *p= (int *) &a;
-    *p=20;
-    printf("%d %d\n",a,*p);
+    int a=1027;
+    cout<<int(log10(a))<<" "<<pow(10,3)<<endl;
     return 0;
 }

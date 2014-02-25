@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int num[1000000];
+    int getnum(int n)
+    {
+        if(n<2)
+            return n;
+        int res=0,left=1,right=n;
+        while(left<=right)
+        {
+            if(left==right)
+            {
+                if(num[left-1]==-1)
+                    num[left-1]=getnum(left-1);
+                res+=pow(num[left-1],2);
+            }
+            else
+            {
+                if(num[left-1]==-1)
+                    num[left-1]=getnum(left-1);
+                if(num[n-left]==-1)
+                    num[n-left]=getnum(n-left);
+                res+=2*num[left-1]*num[n-left];
+            }
+            ++left;
+            --right;
+        }
+        return res;
+    }
+    int numTrees(int n) {
+        for(int i=0;i<1000000;++i)
+            num[i]=-1;
+        num[0]=1;
+        return getnum(n);
+    }
+};

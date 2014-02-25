@@ -1,0 +1,32 @@
+class Solution {
+public:
+    bool same;
+    void down(TreeNode *p,TreeNode *q)
+    {
+        if(p->val!=q->val)
+            same=false;
+        if(p->left==NULL && q->left!=NULL)
+            same=false;
+        if(q->left==NULL && p->left!=NULL)
+            same=false;
+        if(p->right==NULL && q->right!=NULL)
+            same=false;
+        if(q->right==NULL && p->right!=NULL)
+            same=false;
+        if(!same)
+            return;
+        if(p->left)
+            down(p->left,q->left);
+        if(p->right)
+            down(p->right,q->right);
+    }
+    bool isSameTree(TreeNode *p, TreeNode *q) {
+        same=true;
+        if(p==NULL && q==NULL)
+            return true;
+        if(p==NULL || q==NULL)
+            return false;
+        down(p,q);
+        return same;
+    }
+};

@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int reverse(int x) {
+        bool neg=false;
+        if(x<0)
+        {
+            neg=true;
+            x=-x;
+        }
+        int len=log10(x),a,res=0;
+        while(x)
+        {
+            a=x%10;
+            res+=a*pow(10,len--);
+            x/=10;
+        }
+        if(neg)
+            res=-res;
+        return res;
+    }
+};
