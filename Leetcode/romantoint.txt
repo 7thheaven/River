@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int get(char a)
+    {
+        switch(a)
+        {
+            case 'I': return 1;
+            case 'V': return 5;
+            case 'X': return 10;
+            case 'L': return 50;
+            case 'C': return 100;
+            case 'D': return 500;
+            case 'M': return 1000;
+        }
+    }
+    int romanToInt(string s) {
+        int len=s.length(),res=0,tempa,tempb,cur;
+        if(!len)
+            return 0;
+        cur=get(s[0]);
+        if(len==1)
+            return cur;
+        for(int i=1;i<len;++i)
+        {
+            tempa=get(s[i-1]);
+            tempb=get(s[i]);
+            if(tempb<=tempa)
+            {
+                res+=cur;
+                cur=tempb;
+            }
+            else
+                cur=tempb-tempa;
+        }
+        res+=cur;
+        return res;
+    }
+};
