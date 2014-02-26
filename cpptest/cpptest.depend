@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1393401549 source:e:\lightning\river\cpptest\main.cpp
+	<iostream>
+	<cstdio>
+	<cmath>
+
