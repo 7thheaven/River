@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int> &digits) {
+        int len=digits.size(),i=0;
+        bool addone=true;
+        while(addone)
+        {
+            addone=false;
+            if(len-i-1<0)
+            {
+                digits.insert(digits.begin(),1);
+                break;
+            }
+            ++digits[len-i-1];
+            if(digits[len-i-1]>9)
+            {
+                digits[len-i-1]=0;
+                addone=true;
+            }
+            ++i;
+        }
+        return digits;
+    }
+};

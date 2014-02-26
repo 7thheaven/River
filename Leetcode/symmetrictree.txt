@@ -1,0 +1,48 @@
+class Solution {
+public:
+    bool isSymmetric(TreeNode *root) {
+        if(!root)
+            return true;
+        stack<TreeNode *> left,right;
+        TreeNode *tempa=root->left,*tempb=root->right;
+        if(!tempa && !tempb)
+            return true;
+        if(!tempa || !tempb)
+            return false;
+        while(tempa || tempb)
+        {
+            if(tempa->val!=tempb->val)
+                return false;
+            if(tempa->right)
+                left.push(tempa->right);
+            tempa=tempa->left;
+            if(tempb->left)
+                right.push(tempb->left);
+            tempb=tempb->right;
+            if(!tempa && tempb)
+                return false;
+            if(!tempb && tempa)
+                return false;
+            if(!tempa)
+            {
+                if(left.empty())
+                {
+                    if(tempb || !right.empty())
+                        return false;
+                    return true;
+                }
+                tempa=left.top();
+                left.pop();
+            }
+            
+            if(!tempb)
+            {
+                if(right.empty())
+                    return false;
+                tempb=right.top();
+                right.pop();
+            }
+        }
+        return true;
+    }
+};

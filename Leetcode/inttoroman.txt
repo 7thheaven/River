@@ -1,0 +1,51 @@
+class Solution {
+public:
+    string intToRoman(int num) {
+        string res="",temp="";
+        int a,ten=0;
+        char low,mid,high;
+        while(num)
+        {
+            a=num%10;
+            num/=10;
+            switch(ten)
+            {
+                case 0: low='I';mid='V';high='X';break;
+                case 1: low='X';mid='L';high='C';break;
+                case 2: low='C';mid='D';high='M';break;
+                case 3: low='M';
+                        temp="";
+                        while(a--)
+                            temp+=low;
+                        temp+=res;
+                        res=temp;
+                        return res;
+            }
+            temp="";
+            if(a<4)
+                while(a--)
+                    temp+=low;
+            else if(a==4)
+            {
+                temp+=low;
+                temp+=mid;
+            }
+            else if(a<9)
+            {
+                a-=5;
+                temp+=mid;
+                while(a--)
+                    temp+=low;
+            }
+            else
+            {
+                temp+=low;
+                temp+=high;
+            }
+            temp+=res;
+            res=temp;
+            ++ten;
+        }
+        return res;
+    }
+};

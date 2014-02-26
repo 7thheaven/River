@@ -1,0 +1,67 @@
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        bool neg=false,over=false;
+        if(dividend<0 && divisor<0)
+        {
+            dividend=-dividend;
+            divisor=-divisor;
+            if(dividend<0 && divisor<0)
+                return 1;
+            if(dividend<0)
+            {
+                --dividend;
+                over=true;
+            }
+            if(divisor<0)
+                return 0;
+        }
+        else if(dividend<0)
+        {
+            dividend=-dividend;
+            if(dividend<0)
+            {
+                --dividend;
+                over=true;
+            }
+            neg=true;
+        }
+        else if(divisor<0)
+        {
+            divisor=-divisor;
+            if(divisor<0)
+                return 0;
+            neg=true;
+        }
+        int i=1,t[33],a[33],res=0;// t[i] saves 2^i*divisor,a[i] saves 2^i
+        t[0]=divisor;
+        a[0]=1;
+        while(true)
+        {
+            t[i]=t[i-1]+t[i-1];
+            a[i]=a[i-1]+a[i-1];
+            if(t[i]>=dividend || t[i]<=t[i-1])
+                break;
+            ++i;
+        }
+        while(--i)
+        {
+            if(dividend-t[i]>=0)
+            {
+                res+=a[i];
+                dividend-=t[i];
+                if(over)
+                {
+                    ++dividend;
+                    over=false;
+                    ++i;
+                }
+            }
+        }
+        if(dividend-t[0]>=0)
+            res+=a[0];
+        if(neg)
+            res=-res;
+        return res;
+    }
+};

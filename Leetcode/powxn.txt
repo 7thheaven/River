@@ -1,0 +1,38 @@
+class Solution {
+public:
+    double pow(double x, int n) {
+        if(!n)
+            return 1;
+        double t[33],res=1;
+        bool neg=false;
+        int a[33],i=1;
+        t[0]=x;
+        a[0]=1;
+        if(n<0)
+        {
+            neg=true;
+            n=-n;
+        }
+        while(true)
+        {
+            t[i]=t[i-1]*t[i-1];
+            a[i]=2*a[i-1];
+            if(a[i]>n || a[i]<0)
+                break;
+            ++i;
+        }
+        while(--i)
+        {
+            if(n>=a[i])
+            {
+                res*=t[i];
+                n-=a[i];
+            }
+        }
+        if(n>=a[0])
+            res*=t[0];
+        if(neg)
+            res=1.0/res;
+        return res;
+    }
+};

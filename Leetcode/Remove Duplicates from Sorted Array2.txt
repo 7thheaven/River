@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int removeDuplicates(int A[], int n) {
+        if(n<3)
+            return n;
+        int count=2,i=2;
+        while(i<n)
+        {
+            if(A[i]!=A[count-1] || A[i]!=A[count-2])
+                A[count++]=A[i];
+            ++i;
+        }
+        return count;
+    }
+};
