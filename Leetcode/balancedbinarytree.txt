@@ -1,0 +1,28 @@
+class Solution {
+public:
+bool balan;
+int getn(TreeNode *root,int n)
+{
+    if(!balan)
+    return 0;
+    int l=0,r=0;
+    if(root->left)
+    l=getn(root->left,n+1);
+    if(root->right)
+    r=getn(root->right,n+1);
+    if(l-r>1 || r-l>1)
+    balan=false;
+    if(l>r)
+    n=l+1;
+    else
+    n=r+1;
+    return n;
+}
+    bool isBalanced(TreeNode *root) {
+        if(!root)
+        return true;
+        balan=true;
+        getn(root,1);
+        return balan;
+    }
+};
