@@ -1,11 +1,6 @@
-#include <iostream>
-#include <cstdio>
-#include <cmath>
-#include <map>
-
-using namespace std;
-
-int lengthOfLongestSubstring(string s) {
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
         int len=s.length();
         if(!len)
             return 0;
@@ -32,10 +27,4 @@ int lengthOfLongestSubstring(string s) {
             res=temp;
         return res;
     }
-
-int main()
-{
-    string a="wlrbbmqbhcdarzowkkyhiddqscdxrjmowfrxsjybldbefsarcbynecdyggxxpklorellnmpapqfwkhopkmco";
-    cout<<lengthOfLongestSubstring(a)<<endl;
-    return 0;
-}
+};
