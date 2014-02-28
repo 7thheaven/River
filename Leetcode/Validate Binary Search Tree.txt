@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int getmax(TreeNode *root)
+    {
+        int max=root->val;
+        int tempa=INT_MIN,tempb=INT_MIN;
+        if(root->left)
+            tempa=getmax(root->left);
+        if(root->right)
+            tempb=getmax(root->right);
+        if(tempa>max)
+            max=tempa;
+        if(tempb>max)
+            max=tempb;
+        return max;
+    }
+    int getmin(TreeNode *root)
+    {
+        int min=root->val;
+        int tempa=INT_MAX,tempb=INT_MAX;
+        if(root->left)
+            tempa=getmin(root->left);
+        if(root->right)
+            tempb=getmin(root->right);
+        if(tempa<min)
+            min=tempa;
+        if(tempb<min)
+            min=tempb;
+        return min;
+    }
+    bool isValidBST(TreeNode *root) {
+        if(!root)
+            return true;
+        if(root->left && getmax(root->left) >= root->val)
+            return false;
+        if(root->right && getmin(root->right) <= root->val)
+            return false;
+        bool res=true;
+        if(root->left)
+            res=isValidBST(root->left);
+        if(!res)
+            return false;
+        if(root->right)
+            res=isValidBST(root->right);
+        return res;
+    }
+};
