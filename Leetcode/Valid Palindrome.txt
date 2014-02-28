@@ -1,0 +1,36 @@
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        int len=s.length();
+        int left=0,right=len-1;
+        char a=0,b=0;
+        while(left<right)
+        {
+            if(!a)
+            if(s[left]<='z' && s[left]>='a')
+                a=s[left]-32;
+            else if(s[left]<='Z' && s[left]>='A' ||(s[left]<='9' && s[left]>='0'))
+                a=s[left];
+            else
+            {
+                ++left;
+                continue;
+            }
+            if(s[right]<='z' && s[right]>='a')
+                b=s[right]-32;
+            else if(s[right]<='Z' && s[right]>='A' ||(s[right]<='9' && s[right]>='0'))
+                b=s[right];
+            else
+            {
+                --right;
+                continue;
+            }
+            if(a!=b)
+                return false;
+            a=b=0;
+            ++left;
+            --right;
+        }
+        return true;
+    }
+};
