@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int atoi(const char *str) {
+        if(!str)
+            return 0;
+        int i=-1,res=0;
+        double last=0;
+        bool neg=false;
+        while(str[++i]==' ') ;
+        if(str[i]=='+')
+            ++i;
+        else if(str[i]=='-')
+        {
+            neg=true;
+            ++i;
+        }
+        else if(str[i]>'9' || str[i]<'0')
+            return 0;
+        while(str[i]>='0' && str[i]<='9')
+        {
+            if(last*10+int(str[i]-48)>INT_MAX)
+                if(neg)
+                    return INT_MIN;
+                else
+                    return INT_MAX;
+            res*=10;
+            res+=str[i]-48;
+            last=res;
+            ++i;
+        }
+        if(neg)
+            res=-res;
+        return res;
+    }
+};

@@ -1,0 +1,46 @@
+class Solution {
+public:
+    string convert(string s, int nRows) {
+        int len=s.length();
+        if(nRows<2 || len<2)
+        return s;
+        string t[nRows];
+        for(int i=0;i<nRows;++i)
+        t[i]="";
+        if(nRows==2)
+        {
+            for(int i=0;i<len;i+=2)
+            t[0]+=s[i];
+            for(int i=1;i<len;i+=2)
+            t[0]+=s[i];
+            return t[0];
+        }
+        bool down=true;
+        int loop=2*nRows-2,zig;
+        t[0]+=s[0];
+        for(int i=1;i<len;++i)
+        {
+            if(down)
+            {
+                if(i%loop<nRows)
+                t[i%loop]+=s[i];
+                else
+                {
+                    down=false;
+                    zig=nRows-2;
+                }
+            }
+            if(!down)
+            {
+                while(zig && i<len)
+                t[zig--]+=s[i++];
+                --i;
+                    down=true;
+            }
+        }
+        for(int i=1;i<nRows;++i)
+        for(int j=0;t[i][j]!='\0';++j)
+        t[0]+=t[i][j];
+        return t[0];
+    }
+};
