@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int maxProfit(vector<int> &prices) {
+        int n=prices.size();
+        if(n<2)
+            return 0;
+        int res=0,before[n],after[n],min=prices[0],max=prices[n-1];
+        before[0]=after[n-1]=0;
+        for(int i=1;i<n;++i)
+        {
+            min=std::min(min,prices[i]);
+            before[i]=std::max(before[i-1],prices[i]-min);
+        }
+        for(int i=n-2;i>=0;--i)
+        {
+            max=std::max(max,prices[i]);
+            after[i]=std::max(after[i+1],max-prices[i]);
+        }
+        for(int i=0;i<n;++i)
+            res=std::max(res,before[i]+after[i]);
+        return res;
+    }
+};

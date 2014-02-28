@@ -1,0 +1,81 @@
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> res;
+        int len=digits.length(),n;
+        queue<string> abc;
+        string oldone,newone;
+        abc.push("");
+        for(int i=0;i<len;++i)
+        {
+            n=abc.size();
+            while(n--)
+            {
+                oldone=abc.front();
+                abc.pop();
+                if(digits[i]=='2')
+                    for(int j=0;j<3;++j)
+                    {
+                        newone=oldone;
+                        newone+=char('a'+j);
+                        abc.push(newone);
+                    }
+                else if(digits[i]=='3')
+                    for(int j=0;j<3;++j)
+                    {
+                        newone=oldone;
+                        newone+=char('d'+j);
+                        abc.push(newone);
+                    }
+                else if(digits[i]=='4')
+                    for(int j=0;j<3;++j)
+                    {
+                        newone=oldone;
+                        newone+=char('g'+j);
+                        abc.push(newone);
+                    }
+                else if(digits[i]=='5')
+                    for(int j=0;j<3;++j)
+                    {
+                        newone=oldone;
+                        newone+=char('j'+j);
+                        abc.push(newone);
+                    }
+                else if(digits[i]=='6')
+                    for(int j=0;j<3;++j)
+                    {
+                        newone=oldone;
+                        newone+=char('m'+j);
+                        abc.push(newone);
+                    }
+                else if(digits[i]=='7')
+                    for(int j=0;j<4;++j)
+                    {
+                        newone=oldone;
+                        newone+=char('p'+j);
+                        abc.push(newone);
+                    }
+                else if(digits[i]=='8')
+                    for(int j=0;j<3;++j)
+                    {
+                        newone=oldone;
+                        newone+=char('t'+j);
+                        abc.push(newone);
+                    }
+                else if(digits[i]=='9')
+                    for(int j=0;j<4;++j)
+                    {
+                        newone=oldone;
+                        newone+=char('w'+j);
+                        abc.push(newone);
+                    }
+            }
+        }
+        while(!abc.empty())
+        {
+            res.push_back(abc.front());
+            abc.pop();
+        }
+        return res;
+    }
+};
