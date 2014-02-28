@@ -1,0 +1,33 @@
+class Solution {
+public:
+    string countAndSay(int n) {
+        if(n<1)
+            return "";
+        string res="1",temp;
+        int len,count;
+        char last;
+        for(int i=1;i<n;++i)
+        {
+            temp=res;
+            res="";
+            len=temp.length();
+            last=temp[0];
+            count=1;
+            for(int j=1;j<len;++j)
+            {
+                if(last==temp[j])
+                    ++count;
+                else
+                {
+                    res+=char(48+count);
+                    res+=last;
+                    last=temp[j];
+                    count=1;
+                }
+            }
+            res+=char(48+count);
+            res+=last;
+        }
+        return res;
+    }
+};
