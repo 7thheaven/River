@@ -1,0 +1,84 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int x=a.length(),y=b.length();
+        if(!x)
+            return b;
+        if(!y)
+            return a;
+        int i=0,j;
+        string res="",temp;
+        bool addone=false;
+        while(true)
+        {
+            if(i>=x)
+            {
+                j=0;
+                temp="";
+                while(addone && i<y && b[y-i-1]=='1')
+                {
+                    ++i;
+                    ++j;
+                }
+                if(addone)
+                    ++i;
+                for(int k=0;k<y-i;++k)
+                    temp+=b[k];
+                if(addone)
+                    temp+='1';
+                while(j--)
+                    temp+='0';
+                temp+=res;
+                return temp;
+            }
+            else if(i>=y)
+            {
+                j=0;
+                temp="";
+                while(addone && i<x && a[x-i-1]=='1')
+                {
+                    ++i;
+                    ++j;
+                }
+                if(addone)
+                    ++i;
+                for(int k=0;k<x-i;++k)
+                    temp+=a[k];
+                if(addone)
+                    temp+='1';
+                while(j--)
+                    temp+='0';
+                temp+=res;
+                return temp;
+            }
+            else
+            {
+                temp="";
+                if(addone && a[x-i-1]=='1' && b[y-i-1]=='1')
+                    temp+='1';
+                else if(addone && a[x-i-1]=='1' && b[y-i-1]=='0')
+                    temp+='0';
+                else if(addone && a[x-i-1]=='0' && b[y-i-1]=='1')
+                    temp+='0';
+                else if(addone && a[x-i-1]=='0' && b[y-i-1]=='0')
+                {
+                    temp+='1';
+                    addone=false;
+                }
+                else if(a[x-i-1]=='1' && b[y-i-1]=='1')
+                {
+                    temp+='0';
+                    addone=true;
+                }
+                else if(a[x-i-1]=='0' && b[y-i-1]=='0')
+                    temp+='0';
+                else
+                    temp+='1';
+                temp+=res;
+                res=temp;
+            }
+            ++i;
+        }
+        return res;
+    }
+};

@@ -1,13 +1,6 @@
-#include <iostream>
-#include <cstdio>
-#include <cmath>
-#include <map>
-#include <vector>
-#include <cstring>
-
-using namespace std;
-
-int numDecodings(string s) {
+class Solution {
+public:
+    int numDecodings(string s) {
         int len=s.length();
         if(!len)
             return 0;
@@ -41,9 +34,4 @@ int numDecodings(string s) {
         }
         return dp[0];
     }
-
-int main()
-{
-    cout<<numDecodings("27")<<endl;
-    return 0;
-}
+};
