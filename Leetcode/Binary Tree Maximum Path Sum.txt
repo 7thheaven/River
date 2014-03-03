@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int res;
+    void getmax(TreeNode *root,int & onemax,int & twomax)
+    {
+        int now=root->val;
+        int lone=now,ltwo=now,rone=now,rtwo=now;
+        onemax=now;
+        twomax=now;
+        if(root->left)
+            getmax(root->left,lone,ltwo);
+        if(root->right)
+            getmax(root->right,rone,rtwo);
+        if(root->left && lone>0 && (!root->right || lone>rone))
+            onemax=now+lone;
+        else if(root->right && rone>0 && (!root->left || rone>lone))
+            onemax=now+rone;
+        if(root->left && root->right)
+            twomax=now+lone+rone;
+        if(res<onemax)
+            res=onemax;
+        if(res<twomax)
+            res=twomax;
+        if(res<lone)
+            res=lone;
+        if(res<rone)
+            res=rone;
+    }
+    int maxPathSum(TreeNode *root) {
+        if(!root)
+            return 0;
+        int onemax,twomax;
+        res=root->val;
+        getmax(root,onemax,twomax);
+        return res;
+    }
+};

@@ -1,0 +1,60 @@
+class Solution {
+public:
+    int candy(vector<int> &ratings) {
+        int len=ratings.size();
+        if(len<2)
+            return len;
+        int res=1,updown=0,nowlen=2,last=1;
+        if(ratings[1]==ratings[0])
+            updown=0;
+        else if(ratings[1]>ratings[0])
+            updown=1;
+        else
+            updown=2;
+        for(int i=2;i<=len;++i)
+        {
+            while(i<len && updown==0 && ratings[i]==ratings[i-1])
+            {
+                ++i;
+                ++nowlen;
+            }
+            while(i<len && updown==1 && ratings[i]>ratings[i-1])
+            {
+                ++i;
+                ++nowlen;
+            }
+            while(i<len && updown==2 && ratings[i]<ratings[i-1])
+            {
+                ++i;
+                ++nowlen;
+            }
+            if(updown==0)
+            {
+                res+=nowlen-1;
+                last=1;
+            }
+            else if(updown==1)
+            {
+                res+=(1+nowlen)*nowlen/2-1;
+                last=nowlen;
+            }
+            else
+            {
+                res+=(1+nowlen)*nowlen/2;
+                if(nowlen<last)
+                    res-=nowlen;
+                if(nowlen>=last)
+                    res-=last;
+                last=1;
+            }
+            if(i<len && ratings[i]==ratings[i-1])
+                updown=0;
+            else if(i<len && ratings[i]>ratings[i-1])
+                updown=1;
+            else
+                updown=2;
+            nowlen=2;
+        }
+        return res;
+    }
+};
