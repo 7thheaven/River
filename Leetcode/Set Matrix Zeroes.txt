@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void setZeroes(vector<vector<int> > &matrix) {
+        int m=matrix.size();
+        if(!m)
+            return;
+        int n=matrix[0].size(),temp;
+        if(!n)
+            return;
+        queue<int> c,r;
+        for(int i=0;i<m;++i)
+        for(int j=0;j<n;++j)
+        {
+            if(!matrix[i][j])
+            {
+                c.push(i);
+                r.push(j);
+            }
+        }
+        while(!c.empty())
+        {
+            temp=c.front();
+            c.pop();
+            for(int i=0;i<n;++i)
+                matrix[temp][i]=0;
+        }
+        while(!r.empty())
+        {
+            temp=r.front();
+            r.pop();
+            for(int i=0;i<m;++i)
+                matrix[i][temp]=0;
+        }
+    }
+};

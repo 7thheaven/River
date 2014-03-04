@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int c(int n,int k)
+    {
+        if(!k)
+            return 1;
+        double res=n;
+        for(int i=n-1;i>n-k;--i)
+            res*=i;
+        for(int i=2;i<=k;++i)
+            res/=i;
+        int real=res;
+        return real;
+    }
+    int uniquePaths(int m, int n) {
+        if(m>n)
+            return c(m+n-2,n-1);
+        else
+            return c(m+n-2,m-1);
+    }
+};
