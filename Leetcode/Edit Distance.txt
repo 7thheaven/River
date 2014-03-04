@@ -1,13 +1,6 @@
-#include <iostream>
-#include <cstdio>
-#include <cmath>
-#include <map>
-#include <vector>
-#include <cstring>
-
-using namespace std;
-
-int minDistance(string word1, string word2) {
+class Solution {
+public:
+    int minDistance(string word1, string word2) {
         int n=word1.length(),m=word2.length();
         if(!n)
         return m;
@@ -32,14 +25,7 @@ int minDistance(string word1, string word2) {
                     c[i][j]=c[i-1][j-1];
                 ++c[i][j];
             }
-            cout<<i<<" "<<j<<" "<<c[i][j]<<endl;
-            cout<<c[i-1][j]<<" "<<c[i][j-1]<<" "<<c[i-1][j-1]<<endl;
         }
         return c[n][m];
     }
-
-int main()
-{
-    cout<<minDistance("a","ab")<<endl;
-    return 0;
-}
+};
