@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int c(int n,int k)
+    {
+        if(!k)
+            return 1;
+        long long int res=n,m=2;
+        for(int i=n-1;i>n-k;--i)
+        {
+            res*=i;
+            while(m<=k && res%m==0)
+            {
+                res/=m;
+                ++m;
+            }
+        }
+        for(int i=m;i<=k;++i)
+            res/=i;
+        return int(res);
+    }
+    vector<int> getRow(int rowIndex) {
+        vector<int> res;
+        for(int i=0;i<rowIndex+1;++i)
+            if(2*i<rowIndex)
+                res.push_back(c(rowIndex,i));
+            else
+                res.push_back(c(rowIndex,rowIndex-i));
+        return res;
+    }
+};
