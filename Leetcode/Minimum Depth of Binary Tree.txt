@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int minDepth(TreeNode *root) {
+        if(!root)
+            return 0;
+        queue<TreeNode *> q;
+        queue<int> level;
+        q.push(root);
+        level.push(0);
+        int i,j=0;
+        TreeNode * temp;
+        while(!q.empty())
+        {
+            i=level.front();
+            while(j==i)
+            {
+                temp=q.front();
+                q.pop();
+                level.pop();
+                if(temp->left)
+                {
+                    q.push(temp->left);
+                    level.push(i+1);
+                }
+                else if(!temp->right)
+                    return i+1;
+                if(temp->right)
+                {
+                    q.push(temp->right);
+                    level.push(i+1);
+                }
+                if(level.empty())
+                    break;
+                j=level.front();
+            }
+        }
+        return -1;
+    }
+};
