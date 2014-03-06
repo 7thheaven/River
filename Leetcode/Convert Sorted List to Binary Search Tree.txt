@@ -1,0 +1,28 @@
+class Solution {
+public:
+    TreeNode *tobst(vector<int> &num,int begin,int end)
+    {
+        if(begin>end)
+            return NULL;
+        int mid=(begin+end)/2;
+        TreeNode *root=new TreeNode(num[mid]);
+        root->left=tobst(num,begin,mid-1);
+        root->right=tobst(num,mid+1,end);
+    }
+    TreeNode *sortedArrayToBST(vector<int> &num) {
+        int len=num.size();
+        if(!len)
+            return NULL;
+        return tobst(num,0,len-1);
+    }
+    TreeNode *sortedListToBST(ListNode *head) {
+        vector<int> array;
+        ListNode * p=head;
+        while(p)
+        {
+            array.push_back(p->val);
+            p=p->next;
+        }
+        return sortedArrayToBST(array);
+    }
+};
