@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void reverseWords(string &s) {
+        int i=0,j=0,len=s.length();
+        string temp="",res="";
+        bool first=true;
+        for(i=0;i<=len;++i)
+        {
+            if(i==len || s[i]==' ')
+            {
+                if(temp!="")
+                {
+                    if(!first)
+                        temp+=" ";
+                    temp+=res;
+                    res=temp;
+                    temp="";
+                    first=false;
+                }
+            }
+            else
+                temp+=s[i];
+        }
+        s=res;
+    }
+};
