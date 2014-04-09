@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int getsum(TreeNode *root,int sum)
+    {
+        if(!root->left && !root->right)
+            return 10*sum+root->val;
+        int res=0;
+        if(root->left)
+        {
+            res+=getsum(root->left,10*sum+root->val);
+        }
+        if(root->right)
+        {
+            res+=getsum(root->right,10*sum+root->val);
+        }
+        return res;
+    }
+    int sumNumbers(TreeNode *root) {
+        if(!root)
+            return 0;
+        return getsum(root,0);
+    }
+};

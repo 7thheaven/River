@@ -1,0 +1,33 @@
+class Solution {
+public:
+    ListNode *reverseBetween(ListNode *head, int m, int n) {
+        if(n<=m)
+            return head;
+        ListNode *fir=head,*sec,*temp,*rhead;
+        for(int i=0;i<m-2;++i)
+            fir=fir->next;
+        rhead=fir;
+        if(m>1)
+            fir=fir->next;
+        int count=0;
+        if(!fir->next)
+            return head;
+        sec=fir->next;
+        while(count<n-m)
+        {
+            ++count;
+            temp=sec->next;
+            sec->next=fir;
+            fir=sec;
+            sec=temp;
+        }
+        if(m==1)
+        {
+            head->next=temp;
+            return fir;
+        }
+        rhead->next->next=temp;
+        rhead->next=fir;
+        return head;
+    }
+};
