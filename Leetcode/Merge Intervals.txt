@@ -1,0 +1,31 @@
+class cmp
+{
+   public:
+      bool operator()(const Interval& a,const Interval& b) const
+      {
+        if(a.start==b.start)
+            return a.end<b.end;
+        return a.start<b.start;
+      }
+};
+class Solution {
+public:
+    vector<Interval> merge(vector<Interval> &intervals) {
+        if(intervals.empty())
+            return intervals;
+        sort(intervals.begin(), intervals.end(), cmp());
+        vector<Interval> res;
+        res.push_back(intervals[0]);
+        for(int i=1;i<intervals.size();++i)
+        {
+            if(intervals[i].start<=res[res.size()-1].end)
+            {
+                if(res[res.size()-1].end<intervals[i].end)
+                    res[res.size()-1].end=intervals[i].end;
+            }
+            else
+                res.push_back(intervals[i]);
+        }
+        return res;
+    }
+};

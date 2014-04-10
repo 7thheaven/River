@@ -1,0 +1,27 @@
+class Solution {
+public:
+    void getpermute(vector<vector<int> > &res, vector<int> &num, int index)
+    {
+        if(index>=num.size())
+        {
+            res.push_back(num);
+            return;
+        }
+        int temp;
+        for(int i=index;i<num.size();++i)
+        {
+            temp=num[i];
+            num[i]=num[index];
+            num[index]=temp;
+            getpermute(res, num, index+1);
+            temp=num[i];
+            num[i]=num[index];
+            num[index]=temp;
+        }
+    }
+    vector<vector<int> > permute(vector<int> &num) {
+        vector<vector<int> >res;
+        getpermute(res, num, 0);
+        return res;
+    }
+};

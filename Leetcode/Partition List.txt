@@ -1,0 +1,28 @@
+class Solution {
+public:
+    ListNode *partition(ListNode *head, int x) {
+        if(!head || !head->next)
+            return head;
+        ListNode *res=new ListNode(x-1),*tail(res),*temp,*temp2;
+        res->next=head;
+        head=res;
+        while(true)
+        {
+            while(head->next && head->next->val<x)
+                head=head->next;
+            if(!head->next)
+                break;
+            tail=head->next;
+            while(tail->next && tail->next->val>=x)
+                tail=tail->next;
+            if(!tail->next || !head->next)
+                break;
+            temp=head->next;
+            temp2=tail->next->next;
+            head->next=tail->next;
+            tail->next->next=temp;
+            tail->next=temp2;
+        }
+        return res->next;
+    }
+};
