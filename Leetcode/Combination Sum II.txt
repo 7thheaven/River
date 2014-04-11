@@ -1,5 +1,6 @@
 class Solution {
 public:
+    map<vector<int>,int> has;
     void get(vector<int> now,const vector<int> &candidates,int sum,const int &target,vector<vector<int> > &res,int index)
     {
         int temp;
@@ -7,24 +8,28 @@ public:
         if(sum+candidates[i]==target)
         {
             now.push_back(candidates[i]);
-            res.push_back(now);
+            if(has.count(now)==0)
+            {
+                has[now]=1;
+                res.push_back(now);
+            }
             now.erase(now.end()-1);
         }
         else if(sum+candidates[i]<target)
         {
             now.push_back(candidates[i]);
-            get(now,candidates,sum+candidates[i],target,res,i);
+            get(now,candidates,sum+candidates[i],target,res,i+1);
             now.erase(now.end()-1);
         }
         }
     }
-    vector<vector<int> > combinationSum(vector<int> &candidates, int target) {
+    vector<vector<int> > combinationSum2(vector<int> &num, int target) {
         vector<vector<int> > res;
-        if(candidates.empty())
+        if(num.empty())
             return res;
-        sort(candidates.begin(),candidates.end());
+        sort(num.begin(),num.end());
         vector<int> temp;
-        get(temp,candidates,0,target,res,0);
+        get(temp,num,0,target,res,0);
         return res;
     }
 };
