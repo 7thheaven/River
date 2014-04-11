@@ -1,0 +1,23 @@
+class Solution {
+public:
+    void get(vector<int> now,int space,vector<vector<int> > & res,int index,const int &n)
+    {
+        for(int i=index;i<=n;++i)
+        {
+            now.push_back(i);
+            if(space==1)
+                res.push_back(now);
+            else
+                get(now,space-1,res,i+1,n);
+            now.pop_back();
+        }
+    }
+    vector<vector<int> > combine(int n, int k) {
+        vector<vector<int> > res;
+        if(!k)
+            return res;
+        vector<int> temp;
+        get(temp,k,res,1,n);
+        return res;
+    }
+};
