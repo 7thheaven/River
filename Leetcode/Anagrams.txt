@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<string> anagrams(vector<string> &strs) {
+        vector<string> res;
+        if(strs.empty())
+            return res;
+        vector<string> temp(strs);
+        for(int i=0;i<temp.size();++i)
+            if(temp[i]!="")
+                sort(&temp[i][0],&temp[i][temp[i].length()]);
+        map<string,int> count;
+        for(int i=0;i<temp.size();++i)
+        {
+            if(count.count(temp[i])>0)
+                ++count[temp[i]];
+            else
+                count[temp[i]]=1;
+        }
+        for(int i=0;i<temp.size();++i)
+            if(count[temp[i]]>1)
+                res.push_back(strs[i]);
+        return res;
+    }
+};
