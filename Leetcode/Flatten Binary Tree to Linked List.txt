@@ -1,0 +1,37 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode * flat(TreeNode *root)
+    {
+        TreeNode *leftleaf(NULL),*rightleaf(NULL);
+        if(root->left)
+            leftleaf=flat(root->left);
+        if(root->right)
+            rightleaf=flat(root->right);
+        if(!root->left && !root->right)
+            return root;
+        if(leftleaf)
+        {
+            leftleaf->right=root->right;
+            root->right=root->left;
+            root->left=NULL;
+        }
+        if(rightleaf)
+            return rightleaf;
+        else
+            return leftleaf;
+    }
+    void flatten(TreeNode *root) {
+        if(!root)
+            return;
+        flat(root);
+    }
+};
