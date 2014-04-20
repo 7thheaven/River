@@ -1,0 +1,73 @@
+class Solution {
+public:
+    int mypartition(vector<int> &a,int begin,int end)
+    {
+        int x(begin+(rand()%(end-begin)+end-begin)%(end-begin)),temp,i(begin-1);
+        temp=a[x];
+        a[x]=a[end];
+        a[end]=temp;
+        for(int j(begin);j<end;++j)
+            if(a[j]<=a[end])
+            {
+                temp=a[++i];
+                a[i]=a[j];
+                a[j]=temp;
+            }
+        temp=a[++i];
+        a[i]=a[end];
+        a[end]=temp;
+        return i;
+    }
+    void myquicksort(vector<int> &a,int begin,int end)
+    {
+        if(begin<end)
+        {
+            int q(mypartition(a,begin,end));
+            myquicksort(a,begin,q-1);
+            myquicksort(a,q+1,end);
+        }
+    }
+    vector<int> twoSum(vector<int> &numbers, int target) {
+        vector<int> res;
+        if(numbers.size()<2)
+            return res;
+        vector<int> temp(numbers);
+        myquicksort(temp,0,temp.size()-1);
+        int low,high,mid,fir(0),sec(0);
+        for(int i(0);i<temp.size();++i)
+        {
+            low=i+1;
+            high=temp.size()-1;
+            while(low<=high)
+            {
+                mid=(low+high)/2;
+                if(temp[mid]==target-temp[i])
+                {
+                    for(int j(0);j<numbers.size();++j)
+                    {
+                        if(!fir && numbers[j]==temp[i])
+                            fir=j+1;
+                        else if(numbers[j]==temp[mid])
+                            sec=j+1;
+                        if(fir && sec)
+                            break;
+                    }
+                    if(fir>sec)
+                    {
+                        low=fir;
+                        fir=sec;
+                        sec=low;
+                    }
+                    res.push_back(fir);
+                    res.push_back(sec);
+                    return res;
+                }
+                else if(temp[mid]<target-temp[i])
+                    low=mid+1;
+                else
+                    high=mid-1;
+            }
+        }
+        return res;
+    }
+};
