@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int factorial[10]={1,1,2,6,24,120,720,5040,40320,362880};
+    void get(string n,int k,string &res)
+    {
+        if(n.length()<1)
+            return;
+        int temp;
+        char swap;
+        temp=(k-1)/factorial[n.length()-1];
+        for(int i(temp);i>0;--i)
+        {
+            swap=n[i];
+            n[i]=n[i-1];
+            n[i-1]=swap;
+        }
+        res+=n[0];
+        k-=((k-1)/factorial[n.length()-1])*factorial[n.length()-1];
+        get(n.substr(1,n.length()-1),k,res);
+    }
+    string getPermutation(int n, int k) {
+        string res;
+        string temp;
+        for(int i(1);i<=n;++i)
+            temp+=i+'0';
+        k%=factorial[n];
+        if(!k)
+            k=factorial[n];
+        get(temp,k,res);
+        return res;
+    }
+};
