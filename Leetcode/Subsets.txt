@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void pick(vector<int> num,const vector<int> & s,int space,int index,vector<vector<int> > &res)
+    {
+        for(int i(index);i<s.size();++i)
+        {
+            num.push_back(s[i]);
+            if(space==1)
+                res.push_back(num);
+            else
+                pick(num,s,space-1,i+1,res);
+            num.pop_back();
+        }
+    }
+    vector<vector<int> > subsets(vector<int> &S) {
+        vector<vector<int> > res;
+        vector<int> temp;
+        res.push_back(temp);
+        if(S.empty())
+            return res;
+        sort(S.begin(),S.end());
+        for(int i(1);i<=S.size();++i)
+            pick(temp,S,i,0,res);
+        return res;
+    }
+};
