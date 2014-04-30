@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int> > &matrix) {
+        vector<int> res;
+        if(matrix.empty())
+            return res;
+        int m(matrix.size()),n(matrix[0].size());
+        bool visit[m][n];
+        for(int i(0);i<m;++i)
+            for(int j(0);j<n;++j)
+                visit[i][j]=false;
+        int toward(0),x(0),y(0);
+        while(res.size()<m*n)
+        {
+            res.push_back(matrix[x][y]);
+            visit[x][y]=true;
+            if(toward==0)
+            {
+                if(y+1>=n || visit[x][y+1])
+                    ++x,toward=1;
+                else
+                    ++y;
+            }
+            else if(toward==1)
+            {
+                if(x+1>=m || visit[x+1][y])
+                    --y,toward=2;
+                else
+                    ++x;
+            }
+            else if(toward==2)
+            {
+                if(y-1<0 || visit[x][y-1])
+                    --x,toward=3;
+                else
+                    --y;
+            }
+            else if(toward==3)
+            {
+                if(x-1<0 || visit[x-1][y])
+                    ++y,toward=0;
+                else
+                    --x;
+            }
+        }
+        return res;
+    }
+};
