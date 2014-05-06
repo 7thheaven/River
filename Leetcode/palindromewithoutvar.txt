@@ -8,7 +8,12 @@ public:
             if(x/int(pow(10,int(log10(x))))!=x%10)
                 return false;
             if(int(log10(x)))
+            {
+                if(int(log10(x))-int(log10(x-(x/int(pow(10,int(log10(x)))))*pow(10,int(log10(x))))>1))
+                    if((x%int(pow(10,int(log10(x))-int(log10(x-(x/int(pow(10,int(log10(x)))))*pow(10,int(log10(x))))))))>9)
+                        return false;
                 x/=pow(10,int(log10(x))-int(log10(x-(x/int(pow(10,int(log10(x)))))*pow(10,int(log10(x))))));
+            }
             x-=(x/int(pow(10,int(log10(x)))))*int(pow(10,int(log10(x))));
         }
         return true;
