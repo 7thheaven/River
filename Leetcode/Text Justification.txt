@@ -1,0 +1,58 @@
+class Solution {
+public:
+    vector<string> fullJustify(vector<string> &words, int L) {
+        vector<string> res;
+        int len(0),now(0),block(0),leaveblock(0);
+        string temp;
+        for(int i(0);i<words.size();++i)
+        {
+            if(len+now+words[i].length()>L)
+            {
+                temp=words[i-now];
+                if(now==1)
+                {
+                    while(temp.length()<L)
+                        temp+=' ';
+                    res.push_back(temp);
+                    len=now=0;
+                    --i;
+                    continue;
+                }
+                block=(L-len)/(now-1);
+                leaveblock=L-len-block*(now-1);
+                for(int j(i-now+1);j<i;++j)
+                {
+                    for(int k(0);k<block;++k)
+                        temp+=' ';
+                    if(leaveblock>0)
+                    {
+                        temp+=' ';
+                        --leaveblock;
+                    }
+                    temp+=words[j];
+                }
+                res.push_back(temp);
+                len=now=0;
+                --i;
+            }
+            else if(i==words.size()-1)
+            {
+                temp=words[i-now];
+                for(int j(i-now+1);j<=i;++j)
+                {
+                    temp+=' ';
+                    temp+=words[j];
+                }
+                while(temp.length()<L)
+                    temp+=' ';
+                res.push_back(temp);
+            }
+            else
+            {
+                len+=words[i].length();
+                ++now;
+            }
+        }
+        return res;
+    }
+};
