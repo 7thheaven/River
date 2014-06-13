@@ -1,0 +1,55 @@
+class Solution {
+
+public:
+
+    int minimumTotal(vector<vector<int> > &triangle) {
+
+        int m(triangle.size());
+
+        if(!m)
+
+            return 0;
+
+        int n(triangle[m-1].size()),res;
+
+        vector<int> last(n,0),next(n,0);
+
+        res=next[0]=last[0]=triangle[0][0];
+
+        for(int i(1);i<m;++i)
+
+        {
+            for(int j(0);j<i+1;++j)
+
+            {
+
+                if(!j)
+
+                    res=next[0]=last[0]+triangle[i][0];
+                else if(j==i)
+
+                    next[j]=last[j-1]+triangle[i][j];
+
+                else if(last[j]<last[j-1])
+
+                    next[j]=last[j]+triangle[i][j];
+
+                else
+
+                    next[j]=last[j-1]+triangle[i][j];
+
+                if(next[j]<res)
+
+                    res=next[j];
+
+            }
+
+            last=next;
+
+        }
+
+        return res;
+
+    }
+
+};
