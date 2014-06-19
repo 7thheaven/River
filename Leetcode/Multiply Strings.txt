@@ -1,0 +1,143 @@
+class Solution {
+public:
+    string addop(string x,string y)
+{
+    string z="";
+    int m=x.length();
+    int n=y.length();
+    int r,d,p=0;
+    r=m<n?m:n;
+    d=m<n?n:m;
+    char * zan;
+    zan = new char[d+1];
+    zan[0]='0';
+    for(int i=1;i<=r;i++)
+    {
+        if(i>1)
+        if(x[m-i+1]+y[n-i+1]>=106)
+            p++;
+        zan[d+1-i]=(x[m-i]+y[n-i]-96)%10+48+p;
+        if(zan[d+1-i]>57)
+          {zan[d+1-i]=48;continue;}
+        else
+            p=0;
+    }
+    if(x[m-r]+y[n-r]>=106)
+        p++;
+    for(int i=0;i<d-r;i++)
+    {
+        if(d==m)
+        zan[d-r-i]=x[m-r-1-i]+p;
+        if(d==n)
+        zan[d-r-i]=y[n-r-1-i]+p;
+        if(zan[d-r-i]>57)
+        {zan[d-r-i]=48;continue;}
+        else
+            p=0;
+    }
+    zan[0]=48+p;
+    if(p)
+    for(int i=0;i<d+1;i++)
+        z+=zan[i];
+    else
+        for(int i=1;i<d+1;i++)
+        z+=zan[i];
+    delete []zan;
+    return z;
+}
+
+string minop(string x,string y)
+{
+    string z="";
+    if(x==y)
+        return "0";
+    int m=x.length();
+    int n=y.length();
+    int r,d,p=0;
+    r=m<n?m:n;
+    d=m<n?n:m;
+    char * zan;
+    zan = new char[d];
+    zan[0]='0';
+    for(int i=1;i<=r;i++)
+    {
+        zan[d-i]=(x[m-i]-y[n-i]+10-p)%10+48;
+        if(x[m-i]-y[n-i]-p>=0)
+            p=0;
+        else
+            p=1;
+    }
+    for(int i=0;i<d-r-1;i++)
+    {
+        if(d==m)
+        zan[d-r-i-1]=x[m-r-1-i]-p;
+        if(d==n)
+        zan[d-r-i-1]=y[n-r-1-i]-p;
+        if(zan[d-r-i-1]<48)
+        {zan[d-r-i-1]=57;continue;}
+        else
+            p=0;
+    }
+    if(d==r)
+    zan[0]=x[0]-y[0]-p+48;
+    else
+        zan[0]=x[0]-p;
+    if(zan[0]==48)
+        for(int i=1;i<d;i++)
+        z+=zan[i];
+    else
+        for(int i=0;i<d;i++)
+        z+=zan[i];
+    delete []zan;
+    return z;
+}
+
+string dancheng(string x,char y)
+{
+    string z="";
+    int m=x.length(),p=0,q;
+    char * zan;
+    zan = new char[m+1];
+    for(int i=0;i<m;i++)
+    {
+        q=(x[m-i-1]-48)*(y-48)%10;
+        zan[m-i]=q+48+p;
+        p=((x[m-i-1]-48)*(y-48))/10;
+        if(zan[m-i]>57)
+        {zan[m-i]-=10;p++;}
+    }
+    zan[0]=p+48;
+    if(!p)
+        for(int i=1;i<m+1;i++)
+        z+=zan[i];
+    else
+        for(int i=0;i<m+1;i++)
+        z+=zan[i];
+    return z;
+}
+
+string mulop(string x,string y)
+{
+    string z="0",zhong=x,zh;
+    int m=x.length();
+    int n=y.length();
+    for(int i=0;i<n;i++)
+    {
+        if(i)
+        zhong+='0';
+        zh=dancheng(zhong,y[n-i-1]);
+        z=addop(z,zh);
+    }
+    int beg=0;
+    while(z[beg]=='0')
+        ++beg;
+    if(beg<z.length())
+        return z.substr(beg,z.length()-beg);
+    else
+        return "0";
+}
+
+    string multiply(string num1, string num2) {
+        return mulop(num1,num2);
+    }
+};
