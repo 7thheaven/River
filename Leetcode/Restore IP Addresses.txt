@@ -1,0 +1,39 @@
+class Solution {
+public:
+    bool judge(const string & s,int beg,int end)
+    {
+        if(end-beg>2)
+            return false;
+        if(s[beg]=='0' && end!=beg)
+            return false;
+        if(end-beg<2)
+            return true;
+        if(s[beg]>'2')
+            return false;
+        if(s[beg]>'1')
+            if(s[beg+1]>'5' || (s[beg+1]=='5' && s[beg+2]>'5'))
+                return false;
+        return true;
+    }
+    vector<string> restoreIpAddresses(string s) {
+        vector<string> res;
+        string temp;
+        int len(s.length());
+        if(len>12)
+            return res;
+        for(int i(1);i<len-2;++i)
+        for(int j(i+1);j<len-1;++j)
+        for(int k(j+1);k<len;++k)
+        {
+            if(judge(s,0,i-1) && judge(s,i,j-1) && judge(s,j,k-1) && judge(s,k,len-1))
+            {
+                temp=s;
+                temp.insert(i,".");
+                temp.insert(j+1,".");
+                temp.insert(k+2,".");
+                res.push_back(temp);
+            }
+        }
+        return res;
+    }
+};
