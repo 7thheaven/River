@@ -1,0 +1,22 @@
+class Solution {
+public:
+    void rec(const int & l,const int & r,vector<string> & res,string s)
+    {
+        if(l>r)
+            return;
+        if(l)
+            rec(l-1,r,res,s+"(");
+        if(r)
+            rec(l,r-1,res,s+")");
+        if(!l && !r)
+            res.push_back(s);
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string> res;
+        if(!n)
+            res.push_back("");
+        else
+            rec(n,n,res,"");
+        return res;
+    }
+};
