@@ -1,0 +1,50 @@
+/* This Code is Submitted by 七Th.Heaven for Problem 1356 at 2010-03-28 19:46:57 */
+#include <cstdio>
+#include <cstdlib>
+using namespace std;
+int main()
+{
+    long long int a;
+    long long PowerMod(long long a, long long b, long long k);
+    int su(register long long int);
+    while(scanf("%lld",&a)!=EOF)
+    {
+        if(a==1)
+           {printf("NO\n");continue;}
+        if(su(a)==1)
+            printf("YES\n");
+        else
+            printf("NO\n");
+    }
+    return 0;
+}
+
+long long PowerMod(long long a, long long b, long long k)
+{
+    long long tmp = a, ret = 1;
+    while (b)
+    {
+        if (b & 1)
+            ret = ret * tmp % k;
+        tmp = tmp * tmp % k;
+        b >>= 1;
+    }
+    return ret;
+}
+
+int su(register long long int x)
+{
+    bool test = 1;
+    srand(100);
+    long long int a,mul=1;
+    for(int i=0;i<4;i++)
+    {
+        a=(rand()%x+x)%x+1;
+        if(a==x)
+            a=x-1;
+        mul=PowerMod(a,x-1,x);
+        if(mul!=1)
+        {test=0;break;}
+    }
+    return test;
+}

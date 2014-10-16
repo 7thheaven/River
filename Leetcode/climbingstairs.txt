@@ -1,12 +1,13 @@
 class Solution {
 public:
-    ListNode *deleteDuplicates(ListNode *head) {
-        ListNode *temp=head;
-        while(temp && temp->next)
-        if(temp->val==temp->next->val)
-                temp->next=temp->next->next;
-        else
-        temp=temp->next;
-        return head;
+    int climbStairs(int n) {
+        int res=1,last=1,newo=1;
+        for(int i=1;i<n;++i)
+        {
+            res=last+newo;
+            last=newo;
+            newo=res;
+        }
+        return res;
     }
 };

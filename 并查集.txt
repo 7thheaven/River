@@ -1,0 +1,68 @@
+/* This Code is Submitted by 七Th.Heaven for Problem 1564 at 2010-05-19 20:41:23 */
+#include <cstdio>
+#include <cstring>
+
+int root[30007],rank[30007];
+
+int getroot(int x)
+{
+    if(root[x]==x)
+        return x;
+    else
+        return getroot(root[x]);
+}
+
+bool same(int x,int y)
+{
+    if(getroot(x)==getroot(y))
+        return 1;
+    else
+        return 0;
+}
+
+void he(int x,int y)
+{
+    int fx=getroot(x),fy=getroot(y);
+    if(fx!=fy)
+    {
+        if(rank[fx]==rank[fy])
+        {
+            root[fx]=fy;
+            ++rank[fy];
+        }
+        if(rank[fx]<rank[fy])
+            root[fx]=fy;
+        else
+            root[fy]=fx;
+    }
+}
+
+int main()
+{
+    int n,m,k=0,a=0,b=0;
+    while(scanf("%d %d",&n,&m)==2)
+    {
+        memset(rank,0,sizeof(rank));
+        for(int i=0;i<n;++i)
+            root[i]=i;
+        if(!n&&!m)
+            break;
+        while(m--)
+        {
+            scanf("%d",&k);
+            scanf("%d",&a);
+            --k;
+            while(k--)
+            {
+                scanf("%d",&b);
+                he(a,b);
+            }
+        }
+        int sum=0;
+        for(int i=0;i<n;++i)
+            if(same(0,i))
+                ++sum;
+        printf("%d\n",sum);
+    }
+    return 0;
+}
